@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOY_PATH="/home/ylrdxapi/new.peerview.x10.mx"
+    - export DEPLOY_PATH="/home/ylrdxapi/domains/peerview2"
     - /bin/cp index.html $DEPLOY_PATH
