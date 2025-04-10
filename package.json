@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "nodemon -e js,html,css,njk app.ts",
-    "build": "tsc; node dist/build.js",
+    "build": "tsc",
     "start": "node dist/app.js"
   }
 }
