@@ -16,7 +16,6 @@
       buildInputs = with pkgs; [
         nushell # shell
         nodejs_18
-        typescript
       ];
       # shell
       shellHook = ''
