@@ -1,4 +1,5 @@
 ---
 deployment:
   tasks:
+    - export DEPLOY_PATH="/home/ylrdxapi/domains/peerview2/"
     - /bin/cp -a . $DEPLOY_PATH
