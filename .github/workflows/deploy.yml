@@ -5,7 +5,7 @@ on:
       copy-package-json:
         type: boolean
         description: Whether to copy package.json and package-lock.json into the server.
-        default: true
+        default: false
 
 jobs:
   compile-and-deploy:
