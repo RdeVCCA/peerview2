@@ -1,0 +1,49 @@
+name: Compile and deploy to server
+on:
+  workflow_dispatch:
+    inputs:
+      copy-package-json:
+        type: boolean
+        description: Whether to copy package.json and package-lock.json into the server.
+        default: true
+
+jobs:
+  compile-and-deploy:
+    name: Compile and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Node.js 18
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        run: npm install
+      - name: Compile TypeScript
+        run: npx tsc
+      - name: Copy important files to ./dist
+        run: |
+          cp -r ./views ./dist/
+          cp -r ./public ./dist/
+          cp -r ./dotenv ./dist/
+      - name: Copy package.json and package-lock.json to ./dist
+        run: |
+          cp package.json ./dist
+          cp package-lock.json ./dist
+        if: github.event.inputs.copy-package-json
+      - name: List files in ./
+        run: |
+          ls ./
+      - name: List files in ./dist
+        run: |
+          ls ./dist
+      - name: Copy files to remote
+        uses: garygrossgarten/github-action-scp@0.9.0
+        with:
+          local: ./dist
+          remote: ${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          dotfiles: true
