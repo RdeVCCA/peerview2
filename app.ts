@@ -11,6 +11,7 @@ function getRandomMessage(): string {
     "Please visit rdev.x10.mx!",
     "I'm thinking, hmm...",
     "我从山中来，带着兰花草，种在小园中，希望花开早。一日看三回，看得花时过，兰花却依然，苞也无一个。",
+    "I am programmed to give 6 messages in total, this is the 6th...",
   ];
   return messages[Math.floor(Math.random() * messages.length)];
 }
