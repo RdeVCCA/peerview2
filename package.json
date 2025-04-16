@@ -1,19 +1,20 @@
 {
+  "type": "module",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
+    "mariadb": "^3.4.1",
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.0",
     "@types/nunjucks": "^3.2.6",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "dev": "nodemon -e js,html,css,njk app.ts",
+    "dev": "tsx watch ./app.ts",
     "build": "npx tsc",
     "start": "node dist/app.js"
   }

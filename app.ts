@@ -1,31 +1,43 @@
 import { default as express } from "express";
 import { default as nunjucks } from "nunjucks";
+import { default as mariadb } from "mariadb";
+import "dotenv/config"; // access env vars with process.env
 
 const app = express();
 const port = 3000;
 
-function getRandomMessage(): string {
-  const messages = [
-    "This is PeerView server!",
-    "Hello world",
-    "Please visit rdev.x10.mx!",
-    "I'm thinking, hmm...",
-    "我从山中来，带着兰花草，种在小园中，希望花开早。一日看三回，看得花时过，兰花却依然，苞也无一个。",
-    "I am programmed to give 6 messages in total, this is the 6th...",
-  ];
-  return messages[Math.floor(Math.random() * messages.length)];
-}
-
-let env = nunjucks.configure("views", {
+const nunjucksEnv = nunjucks.configure("views", {
   autoescape: true,
   express: app,
   noCache: true,
 });
 
-app.get("/", (req, res) => {
-  res.render("index.njk", { message: getRandomMessage() });
+const dbPool = mariadb.createPool({
+  host:process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  trace: true,
+});
+
+async function queryDB<RowType>(query: string, values: any): Promise<RowType[]> {
+  return dbPool.getConnection().then(conn => {
+    const rows = conn.query(query, values);
+    conn.release();
+    return rows;
+  });
+}
+
+async function getRandomMessage(): Promise<string> {
+  return queryDB<{message: string}>("SELECT * FROM messages", null).then(messages => {
+    return messages[Math.floor(Math.random() * messages.length)].message;
+  });
+}
+
+app.get("/", async (req, res) => {
+  res.render("index.njk", { message: await getRandomMessage() });
 });
 
 app.listen(port, () => {
-  console.log(`Test app running on port ${port}`);
+  console.log(`App running on port ${port}`);
 });
