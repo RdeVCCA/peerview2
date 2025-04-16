@@ -34,6 +34,8 @@ async function getRandomMessage(): Promise<string> {
   });
 }
 
+app.use(express.static("public"));
+
 app.get("/", async (req, res) => {
   res.render("index.njk", { message: await getRandomMessage() });
 });
