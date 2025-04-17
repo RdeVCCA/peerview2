@@ -34,10 +34,14 @@ async function getRandomMessage(): Promise<string> {
   });
 }
 
+function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
+  res.render("base.njk", { template, stylesheets, ...options });
+}
+
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  res.render("index.njk", { message: await getRandomMessage() });
+  renderWithBase(res, "index.njk", ["css/index.css"], { message: await getRandomMessage() });
 });
 
 app.listen(port, () => {
