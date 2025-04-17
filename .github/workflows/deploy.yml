@@ -29,7 +29,7 @@ jobs:
         run: |
           cp package.json ./dist
           cp package-lock.json ./dist
-        if: github.event.inputs.copy-package-json
+        if: github.event.inputs.copy-package-json == 'true'
       - name: List files in ./
         run: |
           ls ./
