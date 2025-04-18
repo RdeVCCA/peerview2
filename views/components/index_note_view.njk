@@ -1,0 +1,16 @@
+<div class="index-note-view">
+  <div class="grid">
+    {% for note in notes %}
+    <div class="note">
+      <h2>{{ note.title }}</h2>
+      <p>{{ note.description }}</p>
+    </div>
+    {% endfor %}
+    {% for note in notes %}
+    <div aria-hidden class="note">
+      <h2>{{ note.title }}</h2>
+      <p>{{ note.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
