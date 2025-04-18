@@ -2,6 +2,7 @@ import { default as express } from "express";
 import { default as nunjucks } from "nunjucks";
 import { default as mariadb } from "mariadb";
 import "dotenv/config"; // access env vars with process.env
+import { describe } from "node:test";
 
 const app = express();
 const port = 3000;
@@ -20,7 +21,7 @@ const dbPool = mariadb.createPool({
   trace: true,
 });
 
-async function queryDB<RowType>(query: string, values: any): Promise<RowType[]> {
+async function queryDB<RowType>(query: string, values?: any): Promise<RowType[]> {
   return dbPool.getConnection().then(conn => {
     const rows = conn.query(query, values);
     conn.release();
@@ -28,10 +29,8 @@ async function queryDB<RowType>(query: string, values: any): Promise<RowType[]> 
   });
 }
 
-async function getRandomMessage(): Promise<string> {
-  return queryDB<{message: string}>("SELECT * FROM messages", null).then(messages => {
-    return messages[Math.floor(Math.random() * messages.length)].message;
-  });
+async function getAllNotes(): Promise<{title: string, description: string}[]> {
+  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM notes");
 }
 
 function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
@@ -41,7 +40,7 @@ function renderWithBase(res: express.Response, template: string, stylesheets: st
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  renderWithBase(res, "index.njk", ["css/index.css"], { message: await getRandomMessage() });
+  renderWithBase(res, "index.njk", ["css/index.css"], { notes: await getAllNotes() });
 });
 
 app.listen(port, () => {

@@ -1,0 +1,51 @@
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.index-note-view {
+  overflow-x: hidden;
+
+  >.grid {
+    animation: 8s linear infinite slide-from-right;
+    width: fit-content;
+    min-width: 400%;
+    display: grid;
+    grid-template-rows: 8rem;
+    grid-auto-columns: minmax(10rem, 1fr);
+    column-gap: 1rem;
+    padding-right: 1rem;
+
+    >.note {
+      padding: 0 1rem;
+      grid-row: 1;
+      background-color: white;
+
+      >h2,
+      >p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  &:hover>.grid {
+    animation-play-state: paused;
+  }
+}
