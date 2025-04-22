@@ -2,7 +2,6 @@ import { default as express } from "express";
 import { default as nunjucks } from "nunjucks";
 import { default as mariadb } from "mariadb";
 import "dotenv/config"; // access env vars with process.env
-import { describe } from "node:test";
 
 const app = express();
 const port = 3000;
@@ -30,7 +29,7 @@ async function queryDB<RowType>(query: string, values?: any): Promise<RowType[]>
 }
 
 async function getAllNotes(): Promise<{title: string, description: string}[]> {
-  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM notes");
+  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM test_notes");
 }
 
 function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
