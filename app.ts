@@ -29,7 +29,7 @@ async function queryDB<RowType>(query: string, values?: any): Promise<RowType[]>
 }
 
 async function getAllNotes(): Promise<{title: string, description: string}[]> {
-  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM notes ORDER BY `visits` LIMIT 8");
+  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM notes ORDER BY `visits` DESC LIMIT 8");
 }
 
 function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
