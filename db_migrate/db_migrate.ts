@@ -6,34 +6,12 @@ import * as utils from "./utils";
 import * as loaders from "./loaders";
 import * as oldData from "./old_data";
 
-/*
-  PROGRESS:
-  (x = completed, P = partial, S = special case)
-  [x] accounts
-  [x] comments
-  [x] notes
-  [x] favouritednotes
-  [ ] deletedaccounts
-  [ ] deletednotes
-  [x] notecreators
-  [x] noteratings
-  [x] notesubjectjunction
-  [S] notetypes
-  [ ] notification_threads
-  [ ] notifications
-  [x] placecanvas
-  [x] readstatus
-  [x] reports
-  [S] subjects
-  [x] uploadtimeout
-  [x] usersubjects
-*/
+// every table has been migrated except for the irrelevant ones, `deletedaccounts` and `deletednotes`.
+// they are not migrated over because they actually serve no functionality.
 
+// marker interface
 interface INewData {}
 
-/**
-  * Table `accounts` holds info about users.
-*/
 export class Account implements INewData {
   id: number
   email: string
