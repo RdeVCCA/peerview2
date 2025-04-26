@@ -140,4 +140,3 @@ data_csv/
 data_sql/
 data_json/
 data_new/
-db_migrate.ts
