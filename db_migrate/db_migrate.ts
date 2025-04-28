@@ -94,7 +94,7 @@ class Note implements INewData {
 }
 
 /**
-  * Table `usersubjects` holds info about string and weak subjects of each user.
+  * Table `usersubjects` holds info about strong and weak subjects of each user.
 */
 export class UserSubject implements INewData {
   userId: number
