@@ -5,7 +5,6 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
-dayjs.tz.setDefault("Asia/Singapore");
 
 import * as enums from "./enums";
 import * as oldData from "./old_data";
@@ -140,16 +139,12 @@ export class LegacySubjectsMap {
   }
 }
 
-export function dateToUnixTimestamp(date: string): number {
-  return dayjs.tz(new Date(date)).utc().unix();
-}
-
 export function unixTimestampToDate(unix: number): string {
-  return dayjs.tz(unix).format();
+  return dayjs.unix(unix).tz("Asia/Singapore").format();
 }
 
 export function toIsoDate(date: string): string {
-  return dayjs.tz(new Date(date)).format();
+  return dayjs(date).utc(true).tz("Asia/Singapore").format();
 }
 
 export function rgbToHexCode(rgb: string): string {

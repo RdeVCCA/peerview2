@@ -391,7 +391,9 @@ function toMySQLFile(data: INewData[]): string {
 
 Account.fromAll().then(x => { fs.writeFile("data_new/users.csv", toMySQLFile(x)); });
 Note.fromAll().then(x => { fs.writeFile("data_new/notes.csv", toMySQLFile(x)); });
-Comment.fromAll().then(x => { fs.writeFile("data_new/comments.csv", toMySQLFile(x)); });
+Comment.fromAll().then(x => { fs.writeFile("data_new/comments.csv", toMySQLFile(
+  x.map((v, i) => ({ id: i, ...v }))
+)); });
 NoteSubjectJunction.fromAll().then(x => { fs.writeFile("data_new/notes_subjects.csv", toMySQLFile(x)); });
 NoteCreator.fromAll().then(x => { fs.writeFile("data_new/notes_creators.csv", toMySQLFile(x)); });
 NoteRating.fromAll().then(x => { fs.writeFile("data_new/notes_ratings.csv", toMySQLFile(x)); })
