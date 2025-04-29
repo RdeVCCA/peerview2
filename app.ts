@@ -20,7 +20,7 @@ const dbPool = mariadb.createPool({
   trace: true,
 });
 
-async function queryDB<RowType>(query: string, values?: any): Promise<RowType[]> {
+async function queryDatabase<RowType>(query: string, values?: any): Promise<RowType[]> {
   return dbPool.getConnection().then(conn => {
     const rows = conn.query(query, values);
     conn.release();
@@ -29,7 +29,17 @@ async function queryDB<RowType>(query: string, values?: any): Promise<RowType[]>
 }
 
 async function getAllNotes(): Promise<{title: string, description: string}[]> {
-  return queryDB<{title: string, description: string}>("SELECT `title`, `description` FROM notes ORDER BY `visits` DESC LIMIT 8");
+  return queryDatabase("SELECT `title`, `description` FROM notes ORDER BY `visits` DESC LIMIT 8");
+}
+
+async function getPixels(): Promise<{username: string, x: number, y: number, color: string}[]> {
+  const query = `
+    SELECT users.username, canvas_pixels.x, canvas_pixels.y, canvas_pixels.color, canvas_pixels.time
+    FROM canvas_pixels
+    LEFT JOIN users
+    ON users.id = canvas_pixels.user_id;
+  `;
+  return queryDatabase(query);
 }
 
 function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
@@ -40,6 +50,14 @@ app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
   renderWithBase(res, "index.njk", ["css/index.css"], { notes: await getAllNotes() });
+});
+
+app.get("/pixels", async (req, res) => {
+  res.json(JSON.stringify(await getPixels()));
+});
+
+app.get("/canvas", async (req, res) => {
+  renderWithBase(res, "canvas.njk", ["css/canvas.css"]);
 });
 
 app.listen(port, () => {
