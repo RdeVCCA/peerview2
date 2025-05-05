@@ -1,72 +1,24 @@
 <div id="canvas" class="content">
   <h1>Canvas preview</h1>
-  <p>
-    This is a database test. It is not very will optimized and will lag a lot,
-    as it tries to redraw everything every time the date is changed.
-  </p>
-  <div class="time-input-section">
-    Preview canvas on:
-    <label id="time-input-label" for="time-input"></label>
-    <input id="time-input" type="range" step="1">
-  </div>
-  <div class="grid">
-    {% for row in range(50) %}
-    {% for col in range(50) %}
+  <p>Click on any pixel to see who drew it.</p>
+  <p id="drawn-by">This pixel was drawn by ...</p>
+  <div id="grid">
+    {% for pixel in range(2500) %}
+    {% if pixels[pixel].username and pixels[pixel].color %}
+    <div class="pixel" style="background-color: {{ pixels[pixel].color }}" data-user="{{ pixels[pixel].username }}"></div>
+    {% else %}
     <div class="pixel"></div>
-    {% endfor %}
+    {% endif %}
     {% endfor %}
   </div>
 </div>
 
 <script>
-  function toIsoString(date) {
-    let tzo = -date.getTimezoneOffset(),
-        dif = tzo >= 0 ? '+' : '-',
-        pad = function(num) {
-          return (num < 10 ? '0' : '') + num;
-        };
-
-    return date.getFullYear() +
-      '-' + pad(date.getMonth() + 1) +
-      '-' + pad(date.getDate()) +
-      'T' + pad(date.getHours()) +
-      ':' + pad(date.getMinutes()) +
-      ':' + pad(date.getSeconds()) +
-      dif + pad(Math.floor(Math.abs(tzo) / 60)) +
-      ':' + pad(Math.abs(tzo) % 60);
-  }
-
-  function setPixel(x, y, color) {
-    const pixel = document.querySelectorAll(".pixel")[y * 50 + x];
-    pixel.style.backgroundColor = color;
-  }
-
-  function paint(pixels, before) {
-    for (const e of document.querySelectorAll(".pixel")) {
-      e.style.backgroundColor = "#ffffff";
-    }
-    pixels.filter(p => new Date(p.time).valueOf() / 1000 <= before).forEach(p => setPixel(p.x, p.y, p.color));
-  }
-
-  const slider = document.querySelector("#time-input");
-  const label = document.querySelector("#time-input-label");
-  
-  fetch("/pixels").then(response => {
-    response.json().then(data => {
-      const pixels = JSON.parse(data);
-      const earliest = new Date(pixels.reduce((a, b) => a.time <= b.time ? a : b).time);
-      const latest = new Date(pixels.reduce((a, b) => a.time >= b.time ? a : b).time);
-
-      slider.min = earliest.valueOf() / 1000;
-      slider.max = latest.valueOf() / 1000;
-      label.textContent = toIsoString(earliest);
-      paint(pixels, slider.min);
-
-      slider.addEventListener("input", (e) => {
-        label.textContent = toIsoString(new Date(e.target.value * 1000));
-        paint(pixels, e.target.value);
-      });
+  const drawnBy = document.querySelector("#drawn-by");
+  document.querySelectorAll(".pixel").forEach(pixel => {
+    pixel.addEventListener("click", e => {
+      const painter = e.target.getAttribute("data-user");
+      drawnBy.textContent = painter === null ? "Nobody drew on this pixel before" : `This pixel was drawn by ${painter}`;
     });
-  });
-
+  })
 </script>
