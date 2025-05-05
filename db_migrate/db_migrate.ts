@@ -207,10 +207,9 @@ class NoteRating implements INewData {
   * placecanvas renamed
 */
 class CanvasPixel implements INewData {
-  userId: number
   x: number
   y: number
-  time: string
+  userId: number
   color: string
 
   constructor(pixel: oldData.IPlaceCanvas, users: Account[]) {
@@ -219,7 +218,6 @@ class CanvasPixel implements INewData {
     this.userId = id;
     this.x = pixel.X;
     this.y = pixel.Y;
-    this.time = utils.toIsoDate(pixel.Time);
     if (pixel.color.startsWith("rgb(")) {
       this.color = utils.rgbToHexCode(pixel.color);
     } else {
