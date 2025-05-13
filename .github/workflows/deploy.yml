@@ -19,11 +19,11 @@ jobs:
           node-version: 18.x
       - name: Install dependencies
         run: npm install
-      - name: Compile TypeScript
-        run: npx tsc
+      - name: Compile files
+        run: npm run build
       - name: Copy important files to ./dist
         run: |
-          cp -r ./views ./dist/
+          cp -r ./src/views ./dist/
           cp -r ./public ./dist/
       - name: Copy package.json and package-lock.json to ./dist
         run: |
