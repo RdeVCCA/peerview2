@@ -4,7 +4,8 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "mariadb": "^3.4.1",
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "sass": "^1.88.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
@@ -15,7 +16,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "dev": "npx tsx watch ./app.ts",
+    "dev": "npx tsx watch src/app.ts & npx sass --watch src/scss:public/css",
     "build": "npx tsc",
     "start": "node dist/app.js",
     "migrate-db": "npx tsx db_migrate/db_migrate.ts"

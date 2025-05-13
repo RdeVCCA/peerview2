@@ -1,0 +1,21 @@
+@use "mixins";
+
+#canvas {
+  @include mixins.content;
+
+  #grid {
+    outline: 2px solid black;
+    display: grid;
+    grid-template-rows: repeat(50, 1fr);
+    grid-template-columns: repeat(50, 1fr);
+
+    .pixel {
+      background-color: white;
+      aspect-ratio: 1 / 1;
+
+      &:hover {
+        border: 1px solid black;
+      }
+    }
+  }
+}

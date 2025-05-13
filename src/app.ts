@@ -6,7 +6,7 @@ import "dotenv/config"; // access env vars with process.env
 const app = express();
 const port = 3000;
 
-const nunjucksEnv = nunjucks.configure("views", {
+const nunjucksEnv = nunjucks.configure("src/views", {
   autoescape: true,
   express: app,
   noCache: true,
@@ -28,8 +28,24 @@ async function queryDatabase<RowType>(query: string, values?: any): Promise<RowT
   });
 }
 
-async function getAllNotes(): Promise<{title: string, description: string}[]> {
-  return queryDatabase("SELECT `title`, `description` FROM notes ORDER BY `visits` DESC LIMIT 8");
+async function getTopNotes(): Promise<{title: string, description: string, visits: string}[]> {
+  return queryDatabase("SELECT `title`, `description`, `visits` FROM notes ORDER BY `visits` DESC LIMIT 5");
+}
+
+async function getNewestNotes(): Promise<{title: string, description: string, creation_time: string}[]> {
+  return queryDatabase("SELECT `title`, `description`, `creation_time` FROM notes ORDER BY `creation_time` DESC LIMIT 5");
+}
+
+async function getNoteCount(): Promise<number> {
+  return queryDatabase<{count: BigInt}>("SELECT COUNT(*) AS count FROM notes").then(
+    x => Math.floor(Number(x[0].count) / 100) * 100
+  );
+}
+
+async function getUserCount(): Promise<number> {
+  return queryDatabase<{count: BigInt}>("SELECT COUNT(*) AS count FROM users").then(
+    x => Math.floor(Number(x[0].count) / 100) * 100
+  );
 }
 
 async function getPixels(): Promise<{username: string | null, color: string | null}[]> {
@@ -64,7 +80,12 @@ function renderWithBase(res: express.Response, template: string, stylesheets: st
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  renderWithBase(res, "index.njk", ["css/index.css"], { notes: await getAllNotes() });
+  renderWithBase(res, "index.njk", ["css/index.css"], {
+    topNotes: await getTopNotes(),
+    newestNotes: await getNewestNotes(),
+    users: await getUserCount(),
+    notes: await getNoteCount(),
+  });
 });
 
 app.get("/pixels", async (req, res) => {

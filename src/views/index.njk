@@ -1,0 +1,75 @@
+<div id="index">
+  <div id="hero">
+    <img id="banner" src="logo.svg" alt="Logo" />
+    <h1 id="slogan">RdeV's own platform for sharing study notes.</h1>
+  </div>
+  <div id="notes-background">
+    <div id="notes-section">
+      <h1>Join {{ users }}+ users making {{ notes }}+ notes </h1>
+      <div id="preview-select">
+        <div id="top-notes-button" class="selected">Top</div>
+        <div id="newest-notes-button">Newest</div>
+      </div>
+      <div id="notes-table">
+        <div id="top-notes" class="notes">
+          {% for note in topNotes %}
+          <div>{{ note.visits }}</div>
+          <div>{{ note.title }}</div>
+          <div>{{ note.description }}</div>
+          {% endfor %}
+        </div>
+        <div id="newest-notes" class="notes hidden">
+          {% for note in newestNotes %}
+          <div>{{ note.creation_time | truncate(10, false, '') }}</div>
+          <div>{{ note.title }}</div>
+          <div>{{ note.description }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="points">
+    <h1>Customizable</h1>
+    <p>Select topics to focus on, create reading lists, PeerView will remember them all.</p>
+    <h1>Powerful</h1>
+    <p>Support for over 10 different file formats and 10 sites; navigate them all with the powerful sorting system.</p>
+    <h1>Fun</h1>
+    <p>Gather points to spend on <a href="/canvas">our pixel canvas</a>, draw as you please.</p>
+    <h1>Easy</h1>
+    <p>Simply login with your ICON email to get started.</p>
+  </div>
+  <footer>
+    <div id="footer-content">
+      <p>Created by RV, for RV.</p>
+      <a href="mailto:rdevcca@gmail.com">rdevcca@gmail.com</a>
+      <a href="rdev.x10.mx">rdev.x10.mx</a>
+    </div>
+  </footer>
+</div>
+<script>
+  alert("This is a test version of PeerView and has no functionality.\nPlease go to peerview.x10.mx to use PeerView.");
+
+  const topButton = document.querySelector("#top-notes-button");
+  const newestButton = document.querySelector("#newest-notes-button");
+  const topNotes = document.querySelector("#top-notes");
+  const newestNotes = document.querySelector("#newest-notes");
+
+  function onClick() {
+    topButton.classList.toggle("selected");
+    newestButton.classList.toggle("selected");
+    topNotes.classList.toggle("hidden");
+    newestNotes.classList.toggle("hidden");
+  }
+
+  topButton.addEventListener("click", e => {
+    if (!topButton.classList.contains("selected")) {
+      onClick();
+    }
+  });
+  
+  newestButton.addEventListener("click", e => {
+    if (!newestButton.classList.contains("selected")) {
+      onClick();
+    }
+  });
+</script>
