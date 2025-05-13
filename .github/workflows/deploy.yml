@@ -23,8 +23,12 @@ jobs:
         run: npm run build
       - name: Copy important files to ./dist
         run: |
-          cp -r ./src/views ./dist/
+          mkdir -p ./dist/src
+          cp -r ./src/views ./dist/src/
           cp -r ./public ./dist/
+      - name: Remove db_migrate from ./dist
+        run: |
+          rm -rf ./dist/db_migrate
       - name: Copy package.json and package-lock.json to ./dist
         run: |
           cp package.json ./dist
