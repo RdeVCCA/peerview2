@@ -1,0 +1,100 @@
+@use "mixins";
+
+#index {
+  #hero {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* notebook background */
+    background-image:
+      linear-gradient(var(--gray) 0%, transparent 5%, transparent 100%),
+      linear-gradient(to right, transparent 10%, var(--gray) 10.1%, transparent 10.2%, transparent 89.8%, var(--gray) 89.9%, transparent 90%);
+    background-size: 100% 5vmin;
+    background-repeat: repeat;
+
+    #banner,
+    #slogan {
+      width: 80vmin;
+    }
+  }
+
+  #notes-background {
+    background-color: var(--blue);
+    padding: 20px;
+
+    #notes-section {
+      @include mixins.content;
+
+      h1,
+      p,
+      a {
+        color: white;
+      }
+
+      #preview-select {
+        display: flex;
+
+        * {
+          padding: 5px;
+          color: white;
+          border: 1px solid white;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .selected {
+          background-color: white;
+          color: var(--blue);
+        }
+      }
+
+      .notes {
+        background-color: white;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        row-gap: 1px;
+
+        &.hidden {
+          display: none;
+        }
+
+        * {
+          padding: 10px;
+          background-color: var(--blue);
+          color: white;
+        }
+      }
+
+    }
+
+  }
+
+  #points {
+    @include mixins.content;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  footer {
+    background-color: var(--blue);
+    padding: 20px;
+
+    a {
+      color: white;
+    }
+
+    #footer-content {
+      @include mixins.content;
+      color: white;
+
+      * {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}

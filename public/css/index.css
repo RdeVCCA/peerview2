@@ -1,36 +1,84 @@
-#index {
-  .hero {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* notebook background */
-    background-image:
-      linear-gradient(var(--gray) 0%, transparent 5%, transparent 100%),
-      linear-gradient(to right, transparent 10%, var(--gray) 10.1%, transparent 10.2%, transparent 89.8%, var(--gray) 89.9%, transparent 90%);
-    background-size: 100% 5vmin;
-    background-repeat: repeat;
-
-    .banner,
-    .slogan {
-      width: 80vmin;
-    }
-  }
-
-  .preview {
-    background-color: var(--blue);
-    padding: 20px;
-
-    >h1,
-    >p,
-    >a {
-      color: white;
-    }
-  }
-
-  .points {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+#index #hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* notebook background */
+  background-image: linear-gradient(var(--gray) 0%, transparent 5%, transparent 100%), linear-gradient(to right, transparent 10%, var(--gray) 10.1%, transparent 10.2%, transparent 89.8%, var(--gray) 89.9%, transparent 90%);
+  background-size: 100% 5vmin;
+  background-repeat: repeat;
 }
+#index #hero #banner,
+#index #hero #slogan {
+  width: 80vmin;
+}
+#index #notes-background {
+  background-color: var(--blue);
+  padding: 20px;
+}
+#index #notes-background #notes-section {
+  max-width: min(100vw - 20px, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+}
+#index #notes-background #notes-section h1,
+#index #notes-background #notes-section p,
+#index #notes-background #notes-section a {
+  color: white;
+}
+#index #notes-background #notes-section #preview-select {
+  display: flex;
+}
+#index #notes-background #notes-section #preview-select * {
+  padding: 5px;
+  color: white;
+  border: 1px solid white;
+}
+#index #notes-background #notes-section #preview-select *:hover {
+  cursor: pointer;
+}
+#index #notes-background #notes-section #preview-select .selected {
+  background-color: white;
+  color: var(--blue);
+}
+#index #notes-background #notes-section .notes {
+  background-color: white;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  row-gap: 1px;
+}
+#index #notes-background #notes-section .notes.hidden {
+  display: none;
+}
+#index #notes-background #notes-section .notes * {
+  padding: 10px;
+  background-color: var(--blue);
+  color: white;
+}
+#index #points {
+  max-width: min(100vw - 20px, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#index footer {
+  background-color: var(--blue);
+  padding: 20px;
+}
+#index footer a {
+  color: white;
+}
+#index footer #footer-content {
+  max-width: min(100vw - 20px, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
+#index footer #footer-content * {
+  display: block;
+  text-align: center;
+}
+
+/*# sourceMappingURL=index.css.map */

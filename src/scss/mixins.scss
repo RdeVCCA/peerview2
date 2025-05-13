@@ -1,0 +1,5 @@
+@mixin content {
+  max-width: min(calc(100vw - 20px), 1200px);
+  margin-left: auto;
+  margin-right: auto;
+}
