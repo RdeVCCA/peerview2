@@ -41,12 +41,13 @@ jobs:
         run: |
           ls ./dist
       - name: Copy files to remote
-        uses: garygrossgarten/github-action-scp@0.9.0
-        with:
-          local: ./dist
-          remote: ${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.SSH_HOST }}
-          dotfiles: true
+        run: |
+          eval $(ssh-agent -s)
+          mkdir -v -m 700 $HOME/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
+          chmod 400 $HOME/.ssh/id_ed25519
+          echo "echo ${{ secrets.SSH_PASSPHRASE }}" > ~/.ssh_askpass && chmod +x ~/.ssh_askpass
+          SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=~/.ssh_askpass ssh-add $HOME/.ssh/id_ed25519
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "<command>"
+          scp -r ./dist ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
