@@ -47,7 +47,4 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
           chmod 400 $HOME/.ssh/id_ed25519
-          echo "echo ${{ secrets.SSH_PASSPHRASE }}" > ~/.ssh_askpass && chmod +x ~/.ssh_askpass
-          SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=~/.ssh_askpass ssh-add $HOME/.ssh/id_ed25519
-          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "<command>"
           scp -r ./dist ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
