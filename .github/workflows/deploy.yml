@@ -42,7 +42,6 @@ jobs:
           ls ./dist
       - name: Copy files to remote
         run: |
-          eval $(ssh-agent -s)
           mkdir -v -m 700 $HOME/.ssh
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
