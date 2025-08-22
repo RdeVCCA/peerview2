@@ -16,9 +16,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "dev": "npx tsx watch src/app.ts & npx sass --watch src/scss:public/css",
-    "build": "npx tsc && npx sass src/scss:public/css",
-    "start": "node dist/app.js",
+    "dev": "npx tsx watch app.ts & npx sass --watch public/css:public/css",
     "migrate-db": "npx tsx db_migrate/db_migrate.ts"
   }
 }

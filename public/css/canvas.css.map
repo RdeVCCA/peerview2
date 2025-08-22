@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../../src/scss/canvas.scss","../../src/scss/mixins.scss"],"names":[],"mappings":"AAEA;ECDE;EACA;EACA;;ADEA;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE","file":"canvas.css"}
+{"version":3,"sourceRoot":"","sources":["canvas.scss","mixins.scss"],"names":[],"mappings":"AAEA;ECDE;EACA;EACA;;ADEA;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE","file":"canvas.css"}
