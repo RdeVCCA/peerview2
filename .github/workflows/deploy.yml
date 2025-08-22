@@ -23,19 +23,20 @@ jobs:
         run: npx tsc && npx sass public/css:public/css
       - name: Delete .ts and .scss source files
         run: |
+          echo 'Files to be deleted:'
+          find . -name '*.ts' -o -name '*.scss'
           find . -name '*.ts' -o -name '*.scss' -delete
       - name: Delete package.json and package-lock.json
         run: |
-          rm package.json
-          rm package-lock.json
+          rm package.json package-lock.json
         if: github.event.inputs.copy-package-json == 'false'
       - name: Delete unnecessary files
         run: |
           rm README.md flake.lock flake.nix tsconfig.json
-          rm -rf node_modules db_migrate
+          rm -rf .git .github node_modules db_migrate
       - name: List files in ./
         run: |
-          ls ./
+          ls -a
       - name: Copy files to remote
         run: |
           mkdir -v -m 700 $HOME/.ssh
