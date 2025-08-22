@@ -33,4 +33,4 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
           chmod 400 $HOME/.ssh/id_ed25519
-          scp -i $HOME/.ssh/id_ed25519 -r ./dist ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
+          scp -i $HOME/.ssh/id_ed25519 -r . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_SERVER_DEPLOYMENT_PATH }}
