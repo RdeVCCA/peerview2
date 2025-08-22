@@ -140,3 +140,5 @@ data_csv/
 data_sql/
 data_json/
 data_new/
+public/css/*.css
+public/css/*.css.map

@@ -1,12 +1,15 @@
 import { default as express } from "express";
 import { default as nunjucks } from "nunjucks";
 import { default as mariadb } from "mariadb";
+import { default as sass } from "sass";
 import "dotenv/config"; // access env vars with process.env
+
+import { default as fs } from "fs/promises";
 
 const app = express();
 const port = 3000;
 
-const nunjucksEnv = nunjucks.configure("src/views", {
+const nunjucksEnv = nunjucks.configure("views", {
   autoescape: true,
   express: app,
   noCache: true,
@@ -59,7 +62,7 @@ async function getPixels(): Promise<{username: string | null, color: string | nu
   const rawData = await queryDatabase<{x: number, y: number, username: string, color: string}>(query);
 
   let cur = 0;
-  let ret = [];
+  let ret: { username: string | null, color: string | null }[] = [];
   for (let y = 0; y < 50; y++) {
     for (let x = 0; x < 50; x++) {
       if (cur < rawData.length && rawData[cur].x === x && rawData[cur].y === y) {
