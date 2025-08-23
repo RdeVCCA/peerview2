@@ -88,7 +88,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/pixels", async (req, res) => {
-  res.json(JSON.stringify(await getPixels()));
+  res.json(await getPixels());
 });
 
 app.get("/canvas", async (req, res) => {
