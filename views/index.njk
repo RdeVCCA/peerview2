@@ -1,3 +1,10 @@
+{% extends "base.njk" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/index.css" />
+{% endblock %}
+
+{% block content %}
 <div id="index">
   <div id="hero">
     <img id="banner" src="logo.svg" alt="Logo" />
@@ -73,3 +80,4 @@
     }
   });
 </script>
+{% endblock %}

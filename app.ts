@@ -76,14 +76,10 @@ async function getPixels(): Promise<{username: string | null, color: string | nu
   return ret;
 }
 
-function renderWithBase(res: express.Response, template: string, stylesheets: string[], options?: object): void {
-  res.render("base.njk", { template, stylesheets, ...options });
-}
-
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  renderWithBase(res, "index.njk", ["css/index.css"], {
+  res.render("index.njk", {
     topNotes: await getTopNotes(),
     newestNotes: await getNewestNotes(),
     users: await getUserCount(),
@@ -96,7 +92,7 @@ app.get("/pixels", async (req, res) => {
 });
 
 app.get("/canvas", async (req, res) => {
-  renderWithBase(res, "canvas.njk", ["css/canvas.css"], { pixels: await getPixels() });
+  res.render("canvas.njk", { pixels: await getPixels() });
 });
 
 app.listen(port, () => {
