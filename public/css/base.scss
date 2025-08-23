@@ -66,6 +66,10 @@ button {
   pointer-events: none;
 }
 
+#topbar * {
+  pointer-events: all;
+}
+
 #menu {
   height: 2rem;
   aspect-ratio: 1 / 1;
