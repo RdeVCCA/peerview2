@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
   outputs = {
@@ -14,13 +14,8 @@
   in rec {
     devShells.${system}.default = pkgs.mkShell rec {
       buildInputs = with pkgs; [
-        nushell # shell
-        nodejs_18
+        nodejs_22
       ];
-      # shell
-      shellHook = ''
-        exec ${pkgs.nushell}/bin/nu
-      '';
     };
   };
 }
