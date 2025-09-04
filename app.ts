@@ -1,10 +1,7 @@
 import { default as express } from "express";
 import { default as nunjucks } from "nunjucks";
 import { default as mariadb } from "mariadb";
-import { default as sass } from "sass";
 import "dotenv/config"; // access env vars with process.env
-
-import { default as fs } from "fs/promises";
 
 const app = express();
 const port = 3000;
@@ -36,7 +33,7 @@ async function getTopNotes(): Promise<{title: string, description: string, visit
 }
 
 async function getNewestNotes(): Promise<{title: string, description: string, creation_time: string}[]> {
-  return queryDatabase("SELECT `title`, `description`, `creation_time` FROM notes ORDER BY `creation_time` DESC LIMIT 5");
+  return queryDatabase("SELECT `title`, `description`, `creationTime` FROM notes ORDER BY `creationTime` DESC LIMIT 5");
 }
 
 async function getNoteCount(): Promise<number> {
@@ -53,11 +50,11 @@ async function getUserCount(): Promise<number> {
 
 async function getPixels(): Promise<{username: string | null, color: string | null}[]> {
   const query = `
-    SELECT users.username, canvas_pixels.x, canvas_pixels.y, canvas_pixels.color
-    FROM canvas_pixels
+    SELECT users.username, canvasPixels.x, canvasPixels.y, canvasPixels.color
+    FROM canvasPixels
     LEFT JOIN users
-    ON users.id = canvas_pixels.user_id
-    ORDER BY canvas_pixels.y, canvas_pixels.x;
+    ON users.id = canvasPixels.userId
+    ORDER BY canvasPixels.y, canvasPixels.x;
   `;
   const rawData = await queryDatabase<{x: number, y: number, username: string, color: string}>(query);
 
