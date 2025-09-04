@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "mariadb": "^3.4.1",
