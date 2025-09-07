@@ -102,6 +102,10 @@ export class Note {
     return new Date(this._creationDate);
   }
 
+  public get creationDateString() {
+    return this._creationDate;
+  }
+
   static async fromId(id: number): Promise<Note | null> {
     const note = await DBPool.queryOneIntoType<typeof Note>("SELECT * FROM notes WHERE id = ?", [id]);
     if (note === null) { return null; }

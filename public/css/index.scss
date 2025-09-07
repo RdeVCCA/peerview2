@@ -4,7 +4,7 @@
   #hero {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     /* notebook background */
@@ -14,9 +14,13 @@
     background-size: 100% 5vmin;
     background-repeat: repeat;
 
-    #banner,
     #slogan {
       width: 80vmin;
+    }
+
+    #banner {
+      width: 80vmin;
+      padding: 5vmin;
     }
   }
 
@@ -33,6 +37,7 @@
         color: white;
       }
 
+      /* top/new buttons */
       #preview-select {
         display: flex;
 
@@ -52,31 +57,43 @@
         }
       }
 
-      .notes {
-        background-color: white;
-        display: grid;
-        grid-template-columns: auto auto auto;
-        row-gap: 1px;
+      #notes-table {
+        .notes {
+          background-color: white;
+          display: grid;
+          grid-template-columns: auto auto auto;
+          row-gap: 1px;
 
-        &.hidden {
-          display: none;
+          &.hidden {
+            display: none;
+          }
+
+          * {
+            padding: 10px;
+            background-color: var(--blue);
+            color: white;
+          }
         }
 
-        * {
-          padding: 10px;
-          background-color: var(--blue);
-          color: white;
+        @media screen and (max-width: 600px) {
+          .notes {
+            grid-template-columns: auto auto;
+
+            *:nth-child(3n) {
+              display: none;
+            }
+          }
         }
       }
-
     }
-
   }
 
   #points {
     @include mixins.content;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
   }
 
   footer {

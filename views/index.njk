@@ -19,6 +19,9 @@
       </div>
       <div id="notes-table">
         <div id="top-notes" class="notes">
+          <div>Visits</div>
+          <div>Title</div>
+          <div>Description</div>
           {% for note in topNotes %}
           <div>{{ note.visits }}</div>
           <div>{{ note.title }}</div>
@@ -26,8 +29,11 @@
           {% endfor %}
         </div>
         <div id="newest-notes" class="notes hidden">
+          <div>Upload time</div>
+          <div>Title</div>
+          <div>Description</div>
           {% for note in newestNotes %}
-          <div>{{ note.creation_time | truncate(10, false, '') }}</div>
+          <div>{{ note.creationDateString | truncate(10, false, '') }}</div>
           <div>{{ note.title }}</div>
           <div>{{ note.description }}</div>
           {% endfor %}
@@ -36,14 +42,22 @@
     </div>
   </div>
   <div id="points">
-    <h1>Customizable</h1>
-    <p>Select topics to focus on, create reading lists, PeerView will remember them all.</p>
-    <h1>Powerful</h1>
-    <p>Support for over 10 different file formats and 10 sites; navigate them all with the powerful sorting system.</p>
-    <h1>Fun</h1>
-    <p>Gather points to spend on <a href="/canvas">our pixel canvas</a>, draw as you please.</p>
-    <h1>Easy</h1>
-    <p>Simply login with your ICON email to get started.</p>
+    <div class="points-box">
+      <h1>Customizable</h1>
+      <p>Select topics to focus on, create reading lists, PeerView will remember them all.</p>
+    </div>
+    <div class="points-box">
+      <h1>Powerful</h1>
+      <p>Support for over 10 different file formats and 10 sites; navigate them all with the powerful sorting system.</p>
+    </div>
+    <div class="points-box">
+      <h1>Fun</h1>
+      <p>Gather points to spend on <a href="/canvas">our pixel canvas</a>, draw as you please.</p>
+    </div>
+    <div class="points-box">
+      <h1>Easy</h1>
+      <p>Simply login with your ICON email to get started.</p>
+    </div>
   </div>
   <footer>
     <div id="footer-content">
