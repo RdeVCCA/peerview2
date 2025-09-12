@@ -52,6 +52,10 @@ button {
   }
 }
 
+section {
+  padding: 20px max(20px, 50% - 600px);
+}
+
 /* topbar items */
 #topbar {
   width: 100%;
