@@ -1,8 +1,4 @@
-@use "mixins";
-
 #canvas {
-  @include mixins.content;
-
   #grid {
     outline: 2px solid black;
     display: grid;

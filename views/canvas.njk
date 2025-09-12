@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="canvas" class="content">
+<section id="canvas" class="content">
   <h1>Canvas preview</h1>
   <p>Click on any pixel to see who drew it.</p>
   <p id="drawn-by">This pixel was drawn by ...</p>
@@ -18,7 +18,7 @@
     {% endif %}
     {% endfor %}
   </div>
-</div>
+</section>
 
 <script>
   const drawnBy = document.querySelector("#drawn-by");
